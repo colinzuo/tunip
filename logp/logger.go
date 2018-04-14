@@ -29,6 +29,11 @@ func NewLogger(selector string, options ...LogOption) *Logger {
 	return newLogger(loadLogger().rootLogger, selector, options...)
 }
 
+func (l *Logger) Write(p []byte) (n int, err error) {
+	l.Info(string(p))
+	return len(p), nil
+}
+
 // With creates a child logger and adds structured context to it. Fields added
 // to the child don't affect the parent, and vice versa.
 func (l *Logger) With(args ...interface{}) *Logger {

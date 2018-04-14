@@ -19,6 +19,13 @@
             "program": "${workspaceRoot}/log_demo"
         },
         {
+            "name": "Launch Web Demo",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceRoot}/web_demo"
+        },
+        {
             "name": "Launch",
             "type": "go",
             "request": "launch",
