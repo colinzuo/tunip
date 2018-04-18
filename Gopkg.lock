@@ -65,6 +65,17 @@
   version = "v1.7.6"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/mailru/easyjson"
+  packages = [
+    ".",
+    "buffer",
+    "jlexer",
+    "jwriter"
+  ]
+  revision = "8b799c424f57fa123fc63a99d6383bc6e4c02578"
+
+[[projects]]
   name = "github.com/mattn/go-isatty"
   packages = ["."]
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
@@ -81,6 +92,16 @@
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   revision = "00c29f56e2386353d58c599509e8dc3801b0d716"
+
+[[projects]]
+  name = "github.com/olivere/elastic"
+  packages = [
+    ".",
+    "config",
+    "uritemplates"
+  ]
+  revision = "d6362604399c7af560b54f048b4fcfbdd6eff293"
+  version = "v6.1.14"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -217,6 +238,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "65b26f38a74d6eb19bb89802b489c1b0737c17bd86b553ef80a77d5f80c520e4"
+  inputs-digest = "a1392fe44b2c6de2698753cd2dc355a184a06d944924201bd1bbc2464f1e1998"
   solver-name = "gps-cdcl"
   solver-version = 1

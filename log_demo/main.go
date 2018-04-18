@@ -12,18 +12,19 @@ import (
 )
 
 func main() {
+	appName := "log_demo"
+
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 
-	viper.SetConfigName("tunip")
+	viper.SetConfigName(appName)
 	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("fatal error config file: %s", err))
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 
-	configure.Logging("tunip")
+	configure.Logging(appName)
 	logger := logp.NewLogger("main")
 
 	logger.Info("Hello, world!")

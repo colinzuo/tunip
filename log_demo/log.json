@@ -9,7 +9,7 @@
 
     "files": {
         "path": "logs",
-        "name": "tunip.log",
+        "name": "log_demo.log",
         "maxsize": 5,
         "maxbackups": 20,
         "maxage": 20,

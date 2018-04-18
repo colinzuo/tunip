@@ -23,17 +23,19 @@ type Login struct {
 }
 
 func main() {
+	appName := "web_demo"
+
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 
-	viper.SetConfigName("tunip")
+	viper.SetConfigName(appName)
 	viper.AddConfigPath(".")
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 
-	configure.Logging("tunip")
+	configure.Logging(appName)
 	logger := logp.NewLogger("gin")
 
 	router := gin.New()

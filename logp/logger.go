@@ -86,6 +86,11 @@ func (l *Logger) DPanic(args ...interface{}) {
 
 // Sprintf
 
+// Printf uses fmt.Sprintf to construct and log a message.
+func (l *Logger) Printf(format string, args ...interface{}) {
+	l.sugar.Infof(format, args...)
+}
+
 // Debugf uses fmt.Sprintf to construct and log a message.
 func (l *Logger) Debugf(format string, args ...interface{}) {
 	l.sugar.Debugf(format, args...)
