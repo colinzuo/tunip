@@ -15,10 +15,16 @@ import (
 )
 
 var cfgFile string
+var appName = "tunip"
+
+// Module Name
+const (
+	ModuleName string = "Cmd"
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "tunip",
+	Use:   appName,
 	Short: "Audit Manager",
 	Run:   runCmd.Run,
 }
@@ -68,10 +74,10 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name "tunip" (without extension).
+		// Search config in home directory with name $appName (without extension).
 		viper.AddConfigPath(".")
 		viper.AddConfigPath(home)
-		viper.SetConfigName("tunip")
+		viper.SetConfigName(appName)
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
@@ -81,8 +87,8 @@ func initConfig() {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 
-	configure.Logging("tunip")
-	logger := logp.NewLogger("main")
+	configure.Logging(appName)
+	logger := logp.NewLogger(ModuleName)
 
 	logger.Info("Cobra init done")
 }

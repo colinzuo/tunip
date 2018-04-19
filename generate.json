@@ -1,0 +1,8 @@
+{
+    "gen_mcu_conf": true,
+    "mcu_conf_num": 10,
+
+    "gen_mcu_call": true,
+    "mcu_call_num_min": 2,
+    "mcu_call_num_max": 1000
+}

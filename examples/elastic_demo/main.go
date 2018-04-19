@@ -162,7 +162,7 @@ func main() {
 	}
 	if get1.Found {
 		fmt.Printf("Got document %s in version %d from index %s, type %s\n",
-			get1.Id, *get1.Version, get1.Index, get1.Type)
+			get1.Id, *(get1.Version), get1.Index, get1.Type)
 	}
 
 	// Flush to make sure the documents got written

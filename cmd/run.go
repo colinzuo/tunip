@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/colinzuo/tunip/cmd/impl"
+	"github.com/colinzuo/tunip/logp"
 	"github.com/spf13/cobra"
 )
 
@@ -10,10 +10,18 @@ var runCmd = &cobra.Command{
 	Use:   "run",
 	Short: "Run tunip",
 	Run: func(cmd *cobra.Command, args []string) {
-		impl.Run()
+		Run()
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(runCmd)
+}
+
+//Run default cmd
+func Run() error {
+	logger := logp.NewLogger(ModuleName)
+	logger.Info("Enter Run")
+	logger.Debug("Enter Run")
+	return nil
 }

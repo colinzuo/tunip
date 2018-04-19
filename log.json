@@ -1,6 +1,6 @@
 {
     "json": true,
-    "level": -1,
+    "level": 0,
     "selectors": [],
 
     "to_observer": false,

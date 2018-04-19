@@ -9,41 +9,33 @@
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceRoot}"
+            "program": "${workspaceRoot}",
+            "args": [
+                "generate",
+                "--genConfig",
+                "test"
+            ]
         },
         {
             "name": "Launch Log Demo",
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceRoot}/log_demo"
+            "program": "${workspaceRoot}/examples/log_demo"
         },
         {
             "name": "Launch Web Demo",
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceRoot}/web_demo"
+            "program": "${workspaceRoot}/examples/web_demo"
         },
         {
             "name": "Launch Elastic Demo",
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceRoot}/elastic_demo"
-        },
-        {
-            "name": "Launch",
-            "type": "go",
-            "request": "launch",
-            "mode": "debug",
-            "remotePath": "",
-            "port": 2345,
-            "host": "127.0.0.1",
-            "program": "${fileDirname}",
-            "env": {},
-            "args": [],
-            "showLog": true
+            "program": "${workspaceRoot}/examples/elastic_demo"
         }
     ]
 }
