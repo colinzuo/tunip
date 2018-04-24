@@ -122,6 +122,12 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
+
+[[projects]]
   name = "github.com/spf13/afero"
   packages = [
     ".",
@@ -238,6 +244,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a1392fe44b2c6de2698753cd2dc355a184a06d944924201bd1bbc2464f1e1998"
+  inputs-digest = "04be75c1d5375ff133d30a19ed7ac546c4bd4b688a1e3b63c9d858f4c68a5da6"
   solver-name = "gps-cdcl"
   solver-version = 1

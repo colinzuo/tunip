@@ -13,7 +13,7 @@
             "args": [
                 "generate",
                 "--genConfig",
-                "test"
+                "generate.json"
             ]
         },
         {
