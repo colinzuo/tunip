@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"strconv"
-	"sync"
 	"time"
 
 	"github.com/colinzuo/tunip/logp"
@@ -76,9 +75,9 @@ func Generate(genConfig string) error {
 	logger.Infof("Elasticsearch returned with code %d and version %s\n",
 		code, info.Version.Number)
 
-	channelNum := 10
+	channelNum := 5
 	clients := make([]*elastic.Client, channelNum)
-	for i := 0; i < 10; i++ {
+	for i := 0; i < channelNum; i++ {
 		clients[i], err = elastic.NewClient(elastic.SetURL(serverAddr),
 			elastic.SetErrorLog(logger),
 			elastic.SetInfoLog(logger),
@@ -151,8 +150,6 @@ func (g *Generator) generateMcuConf() {
 
 	ctx := context.Background()
 
-	logger.Infof("Enter generateMcuConf")
-
 	for i := 0; i < 100; i++ {
 		// select time range
 		offset := time.Duration(rand.Float64()*(g.confPeriod.Seconds()-(float64)(config.McuConfConfig.DurationMin))) * time.Second
@@ -162,7 +159,6 @@ func (g *Generator) generateMcuConf() {
 		endTime := startTime.Add(duration)
 
 		if endTime.After(g.confEndTime) {
-			logger.Infof("#%d: endTime %s is after configed endTime %s", i, endTime, g.confEndTime)
 			continue
 		}
 
@@ -174,7 +170,7 @@ func (g *Generator) generateMcuConf() {
 		indexDate := startTime.UTC().Format("2006.01.02")
 		indexName := fmt.Sprintf("logstash-%s", indexDate)
 
-		logger.Infof("indexDate %s, confNumber %d, startTime %s, endTime %s", indexDate, confNumber, startTime, endTime)
+		logger.Infof("generateMcuConf: indexDate %s, confNumber %d, startTime %s, endTime %s", indexDate, confNumber, startTime, endTime)
 
 		termQuery := elastic.NewTermQuery("json_extract.conf.number", strconv.Itoa(confNumber))
 		rangeQuery1 := elastic.NewRangeQuery("json_extract.start_time")
@@ -264,24 +260,16 @@ func (g *Generator) generateMcuConf() {
 				max = config.McuCallConfig.NumMax
 			}
 			callNum := min + rand.Intn(max-min)
-			syncChannel := make(chan int, g.channelNum)
-			defer close(syncChannel)
-			for k := 0; k < g.channelNum; k++ {
-				syncChannel <- k
-			}
-
-			var wg sync.WaitGroup
-			wg.Add(callNum)
+			logger.Infof("To generate %d calls", callNum)
+			bulkRequest := client.Bulk()
 			for j := 0; j < callNum; j++ {
-				go func(callSeq int) {
-					channelNum := <-syncChannel
-					logger.Infof("To generate call %d / %d using channel %d", callSeq, callNum, channelNum)
-					g.generateMcuCall(mcuConf, g.clients[channelNum])
-					syncChannel <- channelNum
-					wg.Done()
-				}(j)
+				bulkRequestItem := g.generateMcuCall(mcuConf, j)
+				bulkRequest.Add(bulkRequestItem)
 			}
-			wg.Wait()
+			bulkResponse, err := bulkRequest.Do(ctx)
+			if err != nil {
+				logger.Errorf("Failed to generate calls: %s", bulkResponse.Failed())
+			}
 		}
 
 		return
@@ -290,72 +278,56 @@ func (g *Generator) generateMcuConf() {
 	logger.Panic("Failed after try many times")
 }
 
-func (g *Generator) generateMcuCall(mcuConf McuConf, client *elastic.Client) {
+func (g *Generator) generateMcuCall(mcuConf McuConf, idx int) *elastic.BulkIndexRequest {
 	logger := g.Logger
 	config := g.Config
-
-	ctx := context.Background()
-
-	logger.Infof("Enter generateMcuConf")
 
 	confStartTime, _ := time.Parse(g.timeLongForm, mcuConf.StartTime)
 	confEndTime, _ := time.Parse(g.timeLongForm, mcuConf.EndTime)
 
-	for i := 0; i < 100; i++ {
-		// select time range
-		offset := time.Duration(rand.Intn(mcuConf.Duration-config.McuCallConfig.DurationMin)) * time.Second
-		startTime := confStartTime.Add(offset)
-		duration := time.Duration(config.McuCallConfig.DurationMin+
-			rand.Intn(config.McuCallConfig.DurationMax-config.McuCallConfig.DurationMin)) * time.Second
-		endTime := startTime.Add(duration)
+	// select time range
+	offset := time.Duration(rand.Intn(mcuConf.Duration-config.McuCallConfig.DurationMin)) * time.Second
+	startTime := confStartTime.Add(offset)
+	duration := time.Duration(config.McuCallConfig.DurationMin+
+		rand.Intn(config.McuCallConfig.DurationMax-config.McuCallConfig.DurationMin)) * time.Second
+	endTime := startTime.Add(duration)
 
-		if endTime.After(confEndTime) {
-			logger.Infof("#%d: endTime %s is after confEndTime %s", i, endTime, confEndTime)
-			continue
-		}
-
-		// check if conf number is free during this period
-		indexDate := startTime.UTC().Format("2006.01.02")
-		indexName := fmt.Sprintf("logstash-%s", indexDate)
-		logger.Infof("indexDate %s", indexDate)
-
-		guid, err := utils.NewUUID()
-		mcuCall := McuCall{
-			Type:       "SERVER_MCU_CALL",
-			GUID:       guid,
-			confGUID:   mcuConf.GUID,
-			CallDetail: McuCallDetail{Number: mcuConf.ConfDetail.Number},
-			StartTime:  startTime.Format(g.timeLongForm),
-			EndTime:    endTime.Format(g.timeLongForm),
-			Duration:   (int)(duration.Seconds()),
-			ErrorCode:  0,
-			ErrorInfo:  "OK",
-		}
-		fbWrapper := FilebeatWrapper{
-			Timestamp: mcuCall.EndTime,
-			Hostname:  "generator",
-			Fields: FilebeatFields{
-				ContainerType: "mru",
-			},
-			JSONExtract: mcuCall,
-		}
-
-		put1, err := client.Index().
-			Index(indexName).
-			Type("doc").
-			BodyJson(fbWrapper).
-			Do(ctx)
-		if err != nil {
-			logger.Errorf("index fail with error: %f", err)
-			continue
-		}
-		logger.Infof("Index mcuCall %s to index %s, type %s\n", put1.Id,
-			put1.Index, put1.Type)
-
-		return
+	if endTime.After(confEndTime) {
+		endTime = confEndTime
+		duration = endTime.Sub(startTime)
 	}
 
-	logger.Errorf("Failed after try many times")
+	// check if conf number is free during this period
+	indexDate := startTime.UTC().Format("2006.01.02")
+	indexName := fmt.Sprintf("logstash-%s", indexDate)
+	logger.Infof("call %d: indexDate %s, startTime %s, endTime %s, duration %s",
+		idx, indexDate, startTime, endTime, duration)
+
+	guid, _ := utils.NewUUID()
+	mcuCall := McuCall{
+		Type:       "SERVER_MCU_CALL",
+		GUID:       guid,
+		confGUID:   mcuConf.GUID,
+		CallDetail: McuCallDetail{Number: mcuConf.ConfDetail.Number},
+		StartTime:  startTime.Format(g.timeLongForm),
+		EndTime:    endTime.Format(g.timeLongForm),
+		Duration:   (int)(duration.Seconds()),
+		ErrorCode:  0,
+		ErrorInfo:  "OK",
+	}
+	fbWrapper := FilebeatWrapper{
+		Timestamp: mcuCall.EndTime,
+		Hostname:  "generator",
+		Fields: FilebeatFields{
+			ContainerType: "mru",
+		},
+		JSONExtract: mcuCall,
+	}
+
+	bulkIndexRequest := elastic.NewBulkIndexRequest()
+	bulkIndexRequest.Index(indexName).Type("doc").Doc(fbWrapper)
+
+	return bulkIndexRequest
 }
 
 // Generate generate according to config
@@ -373,7 +345,7 @@ func (g *Generator) Generate() {
 		g.confPeriod = g.confEndTime.Sub(g.confStartTime)
 		logger.Infof("confStartTime %s, confEndTime %s", g.confStartTime, g.confEndTime)
 
-		for i := 1; i < config.McuConfConfig.Num; i++ {
+		for i := 0; i < config.McuConfConfig.Num; i++ {
 			g.generateMcuConf()
 		}
 	}

@@ -1,5 +1,5 @@
 {
-    "server_addr": "http://172.25.0.73:9200",
+    "server_addr": "http://172.26.0.41:9200",
     "gen_mcu_conf": true,
     "mcu_conf_config": {
         "num": 1000,
@@ -7,7 +7,7 @@
         "end_time": "2017-04-19T15:30:34.742+0800",
         "number_min": 138000,
         "number_max": 139000,
-        "duration_min": 10,
+        "duration_min": 600,
         "duration_max": 86400
     },
 
@@ -18,7 +18,7 @@
         "num_50": 8,
         "num_75": 36,
         "num_max": 1000,
-        "duration_min": 10,
-        "duration_max": 86400
+        "duration_min": 600,
+        "duration_max": 28800
     }
 }
