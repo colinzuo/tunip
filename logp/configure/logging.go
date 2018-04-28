@@ -31,13 +31,11 @@ func Logging(appName string) error {
 		content, err := ioutil.ReadFile(logConfig)
 		if err != nil {
 			log.Printf("logging: read log_config %s failed, %s", logConfig, err)
-			return err
-		}
-
-		err = json.Unmarshal(content, &config)
-		if err != nil {
-			log.Printf("logging: parse log_config %s failed, %s", logConfig, err)
-			return err
+		} else {
+			err = json.Unmarshal(content, &config)
+			if err != nil {
+				log.Panicf("logging: parse log_config %s failed, %s", logConfig, err)
+			}
 		}
 	}
 
