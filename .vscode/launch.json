@@ -11,9 +11,7 @@
             "mode": "debug",
             "program": "${workspaceRoot}",
             "args": [
-                "generate",
-                "--genConfig",
-                "generate.json"
+                "run"
             ]
         },
         {

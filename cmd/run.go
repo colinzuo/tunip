@@ -3,6 +3,8 @@ package cmd
 import (
 	"github.com/colinzuo/tunip/logp"
 	"github.com/spf13/cobra"
+
+	"github.com/colinzuo/tunip/modules/auditmanager"
 )
 
 // runCmd represents the run command
@@ -22,6 +24,8 @@ func init() {
 func Run() error {
 	logger := logp.NewLogger(ModuleName)
 	logger.Info("Enter Run")
-	logger.Debug("Enter Run")
+
+	auditmanager.Run()
+
 	return nil
 }

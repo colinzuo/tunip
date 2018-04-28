@@ -1,3 +1,8 @@
 {
-    "log_config": "log.json"
+    "log_config": "log.json",
+    "audit_manager": {
+        "maxweblistener": 2000,
+        "maxworker": 8,
+        "webport": 9090
+    }
 }
