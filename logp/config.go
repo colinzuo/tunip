@@ -28,9 +28,14 @@ type FileConfig struct {
 }
 
 var defaultConfig = Config{
-	Level: InfoLevel,
+	JSON:    true,
+	Level:   InfoLevel,
+	ToFiles: true,
 	Files: FileConfig{
-		MaxSize: 10,
+		Path:       "logs",
+		MaxSize:    10,
+		MaxBackups: 20,
+		MaxAge:     10,
 	},
 	addCaller: true,
 }
