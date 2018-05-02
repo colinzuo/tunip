@@ -3,6 +3,9 @@
     "audit_manager": {
         "maxweblistener": 2000,
         "maxworker": 8,
-        "webport": 9090
+        "webport": 9090,
+        "reqtimeout": 2000,
+        "batchsize": 1000,
+        "esserveraddr": "http://172.26.0.41:9200"
     }
 }

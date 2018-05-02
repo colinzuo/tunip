@@ -34,6 +34,16 @@ var zapLevels = map[Level]zapcore.Level{
 	ErrorLevel: zapcore.ErrorLevel,
 }
 
+func convLevel(lvl string) (zapcore.Level, error) {
+	for k, v := range levelStrings {
+		if strings.EqualFold(lvl, v) {
+			return zapLevels[k], nil
+		}
+	}
+
+	return zapcore.InfoLevel, errors.New(fmt.Sprintf("unknown level %s", lvl))
+}
+
 // String returns the name of the logging level.
 func (l Level) String() string {
 	s, found := levelStrings[l]

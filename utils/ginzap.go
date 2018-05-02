@@ -33,7 +33,7 @@ func Ginzap(logger *logp.Logger) gin.HandlerFunc {
 				zap.String("query", query),
 				zap.String("ip", c.ClientIP()),
 				zap.String("user-agent", c.Request.UserAgent()),
-				zap.Duration("latency", latency)).Info(path)
+				zap.Duration("latency", latency)).Debug(path)
 		}
 	}
 }

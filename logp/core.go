@@ -19,6 +19,7 @@ import (
 
 var (
 	_log unsafe.Pointer // Pointer to a coreLogger. Access via atomic.LoadPointer.
+	atom zap.AtomicLevel
 )
 
 // Default log dir
@@ -33,6 +34,7 @@ func init() {
 		globalLogger: zap.NewNop(),
 		logger:       newLogger(zap.NewNop(), ""),
 	})
+	atom = zap.NewAtomicLevel()
 }
 
 type coreLogger struct {
@@ -51,10 +53,12 @@ func Configure(cfg Config) error {
 		err          error
 	)
 
+	atom.SetLevel(cfg.Level.zapLevel())
+
 	// Build a single output (stderr has priority if more than one are enabled).
 	switch {
 	case cfg.toObserver:
-		sink, observedLogs = observer.New(cfg.Level.zapLevel())
+		sink, observedLogs = observer.New(atom)
 	case cfg.ToStderr:
 		sink, err = makeStderrOutput(cfg)
 	case cfg.ToFiles:
@@ -149,7 +153,7 @@ func makeOptions(cfg Config) []zap.Option {
 
 func makeStderrOutput(cfg Config) (zapcore.Core, error) {
 	stderr := zapcore.Lock(os.Stderr)
-	return zapcore.NewCore(buildEncoder(cfg), stderr, cfg.Level.zapLevel()), nil
+	return zapcore.NewCore(buildEncoder(cfg), stderr, atom), nil
 }
 
 func makeFileOutput(cfg Config) (zapcore.Core, error) {
@@ -170,7 +174,7 @@ func makeFileOutput(cfg Config) (zapcore.Core, error) {
 		Compress:   cfg.Files.Compress,
 	})
 
-	return zapcore.NewCore(buildEncoder(cfg), w, cfg.Level.zapLevel()), nil
+	return zapcore.NewCore(buildEncoder(cfg), w, atom), nil
 }
 
 func globalLogger() *zap.Logger {
@@ -187,4 +191,19 @@ func storeLogger(l *coreLogger) {
 		old.rootLogger.Sync()
 	}
 	atomic.StorePointer(&_log, unsafe.Pointer(l))
+}
+
+// GetLevel get log level
+func GetLevel() string {
+	return atom.Level().String()
+}
+
+// SetLevel set log level
+func SetLevel(lvl string) error {
+	zapLevel, err := convLevel(lvl)
+	if err != nil {
+		return err
+	}
+	atom.SetLevel(zapLevel)
+	return nil
 }
