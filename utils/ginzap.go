@@ -19,7 +19,7 @@ func Ginzap(logger *logp.Logger) gin.HandlerFunc {
 		c.Next()
 
 		end := time.Now()
-		latency := end.Sub(start)
+		latency := int(end.Sub(start) / 1000000)
 
 		if len(c.Errors) > 0 {
 			// Append error field if this is an erroneous request.
@@ -33,7 +33,7 @@ func Ginzap(logger *logp.Logger) gin.HandlerFunc {
 				zap.String("query", query),
 				zap.String("ip", c.ClientIP()),
 				zap.String("user-agent", c.Request.UserAgent()),
-				zap.Duration("latency", latency)).Debug(path)
+				zap.Int("latency", latency)).Debug(path)
 		}
 	}
 }

@@ -192,7 +192,6 @@ func (m manager) work(workID string) {
 		if client == nil {
 			client, err = elastic.NewClient(elastic.SetURL(serverAddr),
 				elastic.SetErrorLog(logger),
-				elastic.SetInfoLog(logger),
 				elastic.SetSniff(false))
 
 			if err != nil {

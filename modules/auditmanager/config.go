@@ -86,8 +86,8 @@ func initConfig() (Config, error) {
 		logger.Panic("initConfig: BatchSize should be larger than 100")
 	}
 
-	if config.BatchTimeout <= 100 {
-		logger.Panic("initConfig: BatchTimeout should be larger than 100")
+	if config.BatchTimeout <= 50 {
+		logger.Panic("initConfig: BatchTimeout should be larger than 50")
 	}
 
 	return config, nil
