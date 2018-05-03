@@ -16,6 +16,11 @@ func Ginzap(logger *logp.Logger) gin.HandlerFunc {
 		// some evil middlewares modify this values
 		path := c.Request.URL.Path
 		query := c.Request.URL.RawQuery
+
+		logger.With(zap.String("method", c.Request.Method),
+			zap.String("path", path),
+			zap.String("ip", c.ClientIP())).Debug(path)
+
 		c.Next()
 
 		end := time.Now()

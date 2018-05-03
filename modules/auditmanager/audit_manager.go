@@ -3,6 +3,7 @@ package auditmanager
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -15,39 +16,13 @@ import (
 )
 
 type baseMessage struct {
-	Timestamp *time.Time `json:"timstamp"`
-	GUID      string     `json:"guid"`
-}
-
-func (msg baseMessage) isValid() bool {
-	if msg.Timestamp == nil {
-		return false
-	}
-
-	if len(msg.GUID) == 0 {
-		return false
-	}
-
-	return true
-}
-
-type batchAction struct {
-	Index *baseMessage `json:"index"`
-}
-
-func (action batchAction) isValid() bool {
-	if action.Index != nil {
-		if action.Index.isValid() {
-			return true
-		}
-	}
-
-	return false
+	Timestamp time.Time `json:"timestamp"`
+	GUID      string    `json:"guid"`
 }
 
 type workerRequest struct {
 	Base     baseMessage
-	ReqBody  string
+	ReqBody  map[string]interface{}
 	RspChan  chan workerResponse
 	DoneChan chan bool
 }
@@ -142,7 +117,7 @@ func (m manager) webListen() {
 
 		tunip.POST("/_index", m.onIndex)
 
-		tunip.POST("/_bulk", m.onBulk)
+		tunip.POST("/_bulkindex", m.onBulkIndex)
 	}
 
 	portSpec := fmt.Sprintf(":%d", m.config.WebPort)
@@ -220,6 +195,7 @@ func (m manager) work(workID string) {
 		if client == nil {
 			client, err = elastic.NewClient(elastic.SetURL(serverAddr),
 				elastic.SetErrorLog(logger),
+				elastic.SetInfoLog(logger),
 				elastic.SetSniff(false))
 
 			if err != nil {
@@ -313,6 +289,48 @@ func (m manager) onPing(c *gin.Context) {
 	c.JSON(200, pingResponse{ErrCode: ErrCodeOk, ErrInfo: ErrInfoOk, Message: "pong"})
 }
 
+func (m manager) preprocessBody(body []byte) (baseMessage, map[string]interface{}, error) {
+	baseMessage := baseMessage{}
+	var f interface{}
+	err := json.Unmarshal(body, &f)
+	if err != nil {
+		return baseMessage, nil, err
+	}
+	mp := f.(map[string]interface{})
+
+	timestamp, ok := mp["timestamp"]
+	if !ok {
+		return baseMessage, nil, errors.New("timestamp not found")
+	}
+	switch v := timestamp.(type) {
+	case string:
+		ts, err := time.Parse(time.RFC3339, v)
+		if err != nil {
+			return baseMessage, nil, errors.New("timestamp wrong format")
+		}
+		baseMessage.Timestamp = ts
+	default:
+		return baseMessage, nil, errors.New("timestamp wrong format")
+	}
+
+	guid, ok := mp["guid"]
+	if !ok {
+		return baseMessage, nil, errors.New("guid not found")
+	}
+	switch v := guid.(type) {
+	case string:
+		baseMessage.GUID = v
+	default:
+		return baseMessage, nil, errors.New("guid wrong format")
+	}
+
+	mp["@timestamp"] = baseMessage.Timestamp
+	delete(mp, "timestamp")
+	mp["fields"] = map[string]string{"container_type": "tunip"}
+
+	return baseMessage, mp, nil
+}
+
 func (m manager) onIndex(c *gin.Context) {
 	body, err := c.GetRawData()
 	if err != nil {
@@ -321,10 +339,14 @@ func (m manager) onIndex(c *gin.Context) {
 	}
 
 	var baseMessage baseMessage
-	err = json.Unmarshal(body, &baseMessage)
-	if err != nil || !baseMessage.isValid() {
+	var parsedBody map[string]interface{}
+
+	baseMessage, parsedBody, err = m.preprocessBody(body)
+
+	if err != nil {
 		c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToParseBody,
-			ErrInfo: ErrInfoFailedToParseBody})
+			ErrInfo:  ErrInfoFailedToParseBody,
+			MoreInfo: err.Error()})
 		return
 	}
 
@@ -332,7 +354,7 @@ func (m manager) onIndex(c *gin.Context) {
 	doneChan := make(chan bool)
 	timeoutChan := time.After(time.Duration(m.config.ReqTimeout) * time.Millisecond)
 
-	workerReq := workerRequest{Base: baseMessage, ReqBody: string(body),
+	workerReq := workerRequest{Base: baseMessage, ReqBody: parsedBody,
 		RspChan: rspChan, DoneChan: doneChan}
 
 	select {
@@ -354,7 +376,7 @@ func (m manager) onIndex(c *gin.Context) {
 	case <-timeoutChan:
 		m.logger.Errorf("Failed to recv response %+v from worker, timeout",
 			baseMessage)
-		doneChan <- true
+		close(doneChan)
 		c.JSON(http.StatusInternalServerError, baseResponse{ErrCode: ErrCodeTimeout,
 			ErrInfo: ErrInfoTimeout})
 		return
@@ -375,51 +397,36 @@ func (m manager) onIndex(c *gin.Context) {
 	}
 }
 
-func (m manager) onBulk(c *gin.Context) {
+func (m manager) onBulkIndex(c *gin.Context) {
 	body, err := c.GetRawData()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToReadBody,
 			ErrInfo: ErrInfoFailedToReadBody})
 	}
 	batchRequests := make([]workerRequest, 0)
-	needAction := true
-	needSource := false
-	var batchAction batchAction
-	var curRequest workerRequest
 
 	rspChan := make(chan workerResponse)
 	doneChan := make(chan bool)
 	timeoutChan := time.After(time.Duration(m.config.ReqTimeout) * time.Millisecond)
 
+	var baseMessage baseMessage
+	var parsedBody map[string]interface{}
+
 	for _, reqLine := range strings.Split(string(body), "\n") {
 		if len(reqLine) == 0 {
 			continue
 		}
-		if needAction {
-			err = json.Unmarshal([]byte(reqLine), &batchAction)
+		baseMessage, parsedBody, err = m.preprocessBody([]byte(reqLine))
 
-			if err != nil || !batchAction.isValid() {
-				c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToParseBody,
-					ErrInfo:  ErrInfoFailedToParseBody,
-					MoreInfo: fmt.Sprintf("failed to parse action line: %s", reqLine)})
-				return
-			}
-
-			needAction = false
-			needSource = true
-
-			curRequest = workerRequest{Base: *batchAction.Index, RspChan: rspChan, DoneChan: doneChan}
-		} else {
-			curRequest.ReqBody = reqLine
-			batchRequests = append(batchRequests, curRequest)
-			needAction = true
-			needSource = false
+		if err != nil {
+			c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToParseBody,
+				ErrInfo:  ErrInfoFailedToParseBody,
+				MoreInfo: err.Error()})
+			return
 		}
-	}
-	if needSource {
-		c.JSON(http.StatusBadRequest, gin.H{KeyErrCode: ErrCodeFailedToParseBody,
-			KeyErrInfo: ErrInfoFailedToParseBody})
-		return
+		workerReq := workerRequest{Base: baseMessage, ReqBody: parsedBody,
+			RspChan: rspChan, DoneChan: doneChan}
+		batchRequests = append(batchRequests, workerReq)
 	}
 
 	details := make([]workerResponse, 0)
