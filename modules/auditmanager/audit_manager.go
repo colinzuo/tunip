@@ -15,8 +15,34 @@ import (
 )
 
 type baseMessage struct {
-	Timestamp time.Time `json:"timstamp"`
-	GUID      string    `json:"guid"`
+	Timestamp *time.Time `json:"timstamp"`
+	GUID      string     `json:"guid"`
+}
+
+func (msg baseMessage) isValid() bool {
+	if msg.Timestamp == nil {
+		return false
+	}
+
+	if len(msg.GUID) == 0 {
+		return false
+	}
+
+	return true
+}
+
+type batchAction struct {
+	Index *baseMessage `json:"index"`
+}
+
+func (action batchAction) isValid() bool {
+	if action.Index != nil {
+		if action.Index.isValid() {
+			return true
+		}
+	}
+
+	return false
 }
 
 type workerRequest struct {
@@ -37,8 +63,9 @@ type setLevelRequest struct {
 }
 
 type baseResponse struct {
-	ErrCode int    `json:"err_code"`
-	ErrInfo string `json:"err_info"`
+	ErrCode  int    `json:"err_code"`
+	ErrInfo  string `json:"err_info"`
+	MoreInfo string `json:"more_info"`
 }
 
 type pingResponse struct {
@@ -53,15 +80,16 @@ type indexResponse struct {
 	Detail  workerResponse `json:"detail"`
 }
 
+type bulkResponse struct {
+	ErrCode int              `json:"err_code"`
+	ErrInfo string           `json:"err_info"`
+	Details []workerResponse `json:"details"`
+}
+
 type workerResponse struct {
 	GUID   string `json:"guid"`
 	Result string `json:"result"`
 	Status int    `json:"status"`
-}
-
-type bulkItem struct {
-	Action string
-	Source string
 }
 
 type manager struct {
@@ -294,7 +322,7 @@ func (m manager) onIndex(c *gin.Context) {
 
 	var baseMessage baseMessage
 	err = json.Unmarshal(body, &baseMessage)
-	if err != nil {
+	if err != nil || !baseMessage.isValid() {
 		c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToParseBody,
 			ErrInfo: ErrInfoFailedToParseBody})
 		return
@@ -353,23 +381,109 @@ func (m manager) onBulk(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToReadBody,
 			ErrInfo: ErrInfoFailedToReadBody})
 	}
-	bulkItems := make([]bulkItem, 0)
-	var curAction string
+	batchRequests := make([]workerRequest, 0)
 	needAction := true
+	needSource := false
+	var batchAction batchAction
+	var curRequest workerRequest
+
+	rspChan := make(chan workerResponse)
+	doneChan := make(chan bool)
+	timeoutChan := time.After(time.Duration(m.config.ReqTimeout) * time.Millisecond)
+
 	for _, reqLine := range strings.Split(string(body), "\n") {
+		if len(reqLine) == 0 {
+			continue
+		}
 		if needAction {
-			curAction = reqLine
+			err = json.Unmarshal([]byte(reqLine), &batchAction)
+
+			if err != nil || !batchAction.isValid() {
+				c.JSON(http.StatusBadRequest, baseResponse{ErrCode: ErrCodeFailedToParseBody,
+					ErrInfo:  ErrInfoFailedToParseBody,
+					MoreInfo: fmt.Sprintf("failed to parse action line: %s", reqLine)})
+				return
+			}
+
 			needAction = false
-			m.logger.Infof("action line: %s", curAction)
+			needSource = true
+
+			curRequest = workerRequest{Base: *batchAction.Index, RspChan: rspChan, DoneChan: doneChan}
 		} else {
-			m.logger.Infof("source line: %s", reqLine)
-			bulkItems = append(bulkItems, bulkItem{Action: curAction, Source: reqLine})
+			curRequest.ReqBody = reqLine
+			batchRequests = append(batchRequests, curRequest)
 			needAction = true
+			needSource = false
 		}
 	}
-	c.JSON(http.StatusOK, gin.H{KeyErrCode: ErrCodeOk,
-		KeyErrInfo: ErrInfoOk,
-		"body":     bulkItems})
+	if needSource {
+		c.JSON(http.StatusBadRequest, gin.H{KeyErrCode: ErrCodeFailedToParseBody,
+			KeyErrInfo: ErrInfoFailedToParseBody})
+		return
+	}
+
+	details := make([]workerResponse, 0)
+	guidToIdxMap := make(map[string]int)
+
+	for idx, workerReq := range batchRequests {
+		select {
+		case m.dispatchChan <- workerReq:
+			details = append(details, workerResponse{GUID: workerReq.Base.GUID, Result: "Miss", Status: -1})
+			guidToIdxMap[workerReq.Base.GUID] = idx
+		case <-timeoutChan:
+			m.logger.Errorf("Failed to send request %+v to dispatcher, timeout",
+				workerReq.Base)
+			c.JSON(http.StatusInternalServerError, baseResponse{ErrCode: ErrCodeTimeout,
+				ErrInfo: ErrInfoTimeout})
+			return
+		}
+	}
+
+	var rsp workerResponse
+
+	i := 0
+	for i < len(batchRequests) {
+		select {
+		case rsp = <-rspChan:
+			idx, ok := guidToIdxMap[rsp.GUID]
+			if !ok || details[idx].Status >= 0 {
+				moreInfo := ""
+				if !ok {
+					moreInfo = fmt.Sprintf("unexpected worker rsp with GUID: %s", rsp.GUID)
+				} else {
+					moreInfo = fmt.Sprintf("GUID: %s, idx %d, old status %d, new status %d",
+						rsp.GUID, idx, details[idx].Status, rsp.Status)
+				}
+				close(doneChan)
+				c.JSON(http.StatusInternalServerError, baseResponse{ErrCode: ErrCodeUnexpected,
+					ErrInfo:  ErrInfoUnexpected,
+					MoreInfo: moreInfo})
+				return
+			}
+			i++
+			details[idx] = rsp
+		case <-timeoutChan:
+			moreInfo := ""
+			for _, subRsp := range details {
+				if subRsp.Status <= 0 {
+					moreInfo = fmt.Sprintf("Failed to recv response for %s from worker, timeout",
+						subRsp.GUID)
+					m.logger.Error(moreInfo)
+					break
+				}
+			}
+			close(doneChan)
+			c.JSON(http.StatusInternalServerError, baseResponse{ErrCode: ErrCodeTimeout,
+				ErrInfo: ErrInfoTimeout, MoreInfo: moreInfo})
+			return
+		}
+	}
+
+	bulkRsp := bulkResponse{ErrCode: ErrCodeOk, ErrInfo: ErrInfoOk,
+		Details: details}
+	jsonRsp, _ := json.Marshal(bulkRsp)
+	m.logger.Debugf("To send rsp: %s", string(jsonRsp))
+	c.Data(http.StatusOK, ContentTypeJSON, jsonRsp)
 }
 
 func (m manager) onGetLevel(c *gin.Context) {

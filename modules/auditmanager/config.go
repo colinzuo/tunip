@@ -28,6 +28,8 @@ const (
 	ErrCodeTimeout           = 10002
 	ErrCodeIndex             = 10003
 	ErrCodeGeneral           = 10004
+	ErrCodeBadFormat         = 10005
+	ErrCodeUnexpected        = 10006
 )
 
 // API response error info
@@ -38,6 +40,8 @@ const (
 	ErrInfoTimeout           = "ErrInfoTimeout"
 	ErrInfoIndex             = "ErrInfoIndex"
 	ErrInfoGeneral           = "ErrInfoGeneral"
+	ErrInfoBadFormat         = "ErrInfoBadFormat"
+	ErrInfoUnexpected        = "ErrInfoUnexpected"
 )
 
 // API response key
