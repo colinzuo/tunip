@@ -4,7 +4,7 @@
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+          "searchSourceJSON": "{\"filter\":[],\"index\":\"logstash-*\",\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
         },
         "title": "LogCountPerContainerType",
         "uiStateJSON": "{}",
@@ -13,14 +13,14 @@
       },
       "id": "e7f5c1b0-484b-11e8-80eb-d9623bcdf220",
       "type": "visualization",
-      "updated_at": "2018-05-03T07:37:48.533Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"ContainerType\",\"type\":\"phrase\",\"key\":\"fields.container_type.keyword\",\"value\":\"mru\",\"params\":{\"query\":\"mru\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"mru\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+          "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"ContainerType\",\"disabled\":false,\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"key\":\"fields.container_type.keyword\",\"negate\":false,\"params\":{\"query\":\"mru\",\"type\":\"phrase\"},\"type\":\"phrase\",\"value\":\"mru\"},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"mru\",\"type\":\"phrase\"}}}}],\"index\":\"logstash-*\",\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
         },
         "title": "LogCountMruPerModule",
         "uiStateJSON": "{}",
@@ -29,14 +29,14 @@
       },
       "id": "4cec7780-484c-11e8-80eb-d9623bcdf220",
       "type": "visualization",
-      "updated_at": "2018-05-03T07:37:47.964Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"ContainerType\",\"type\":\"phrase\",\"key\":\"fields.container_type.keyword\",\"value\":\"dolphin\",\"params\":{\"query\":\"dolphin\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"dolphin\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+          "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"ContainerType\",\"disabled\":false,\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"key\":\"fields.container_type.keyword\",\"negate\":false,\"params\":{\"query\":\"dolphin\",\"type\":\"phrase\"},\"type\":\"phrase\",\"value\":\"dolphin\"},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"dolphin\",\"type\":\"phrase\"}}}}],\"index\":\"logstash-*\",\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
         },
         "title": "LogCountDolphinPerModule",
         "uiStateJSON": "{}",
@@ -45,14 +45,14 @@
       },
       "id": "34958a50-484c-11e8-80eb-d9623bcdf220",
       "type": "visualization",
-      "updated_at": "2018-05-03T07:37:47.520Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+          "searchSourceJSON": "{\"filter\":[],\"index\":\"logstash-*\",\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
         },
         "title": "LogCountPerContainerTypeTable",
         "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
@@ -61,14 +61,14 @@
       },
       "id": "839d7950-484c-11e8-80eb-d9623bcdf220",
       "type": "visualization",
-      "updated_at": "2018-05-03T07:37:48.537Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"ContainerType\",\"type\":\"phrase\",\"key\":\"fields.container_type.keyword\",\"value\":\"mru\",\"params\":{\"query\":\"mru\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"mru\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+          "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"ContainerType\",\"disabled\":false,\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"key\":\"fields.container_type.keyword\",\"negate\":false,\"params\":{\"query\":\"mru\",\"type\":\"phrase\"},\"type\":\"phrase\",\"value\":\"mru\"},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"mru\",\"type\":\"phrase\"}}}}],\"index\":\"logstash-*\",\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
         },
         "title": "LogCountMruPerModuleTable",
         "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
@@ -77,14 +77,14 @@
       },
       "id": "ccc27310-484c-11e8-80eb-d9623bcdf220",
       "type": "visualization",
-      "updated_at": "2018-05-03T07:37:48.529Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"ContainerType\",\"type\":\"phrase\",\"key\":\"fields.container_type.keyword\",\"value\":\"dolphin\",\"params\":{\"query\":\"dolphin\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"dolphin\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+          "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"ContainerType\",\"disabled\":false,\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"key\":\"fields.container_type.keyword\",\"negate\":false,\"params\":{\"query\":\"dolphin\",\"type\":\"phrase\"},\"type\":\"phrase\",\"value\":\"dolphin\"},\"query\":{\"match\":{\"fields.container_type.keyword\":{\"query\":\"dolphin\",\"type\":\"phrase\"}}}}],\"index\":\"logstash-*\",\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
         },
         "title": "LogCountDolphinPerModuleTable",
         "uiStateJSON": "{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":null,\"direction\":null}}}}",
@@ -93,15 +93,15 @@
       },
       "id": "e16cfa10-484c-11e8-80eb-d9623bcdf220",
       "type": "visualization",
-      "updated_at": "2018-05-03T07:37:47.525Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "hits": 0,
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"query\":{\"query\":\"\",\"language\":\"lucene\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+          "searchSourceJSON": "{\"filter\":[],\"highlightAll\":true,\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"version\":true}"
         },
         "optionsJSON": "{\"darkTheme\":false}",
         "panelsJSON": "[{\"size_x\":6,\"size_y\":3,\"panelIndex\":1,\"type\":\"visualization\",\"id\":\"e7f5c1b0-484b-11e8-80eb-d9623bcdf220\",\"col\":1,\"row\":1},{\"size_x\":6,\"size_y\":3,\"panelIndex\":2,\"type\":\"visualization\",\"id\":\"4cec7780-484c-11e8-80eb-d9623bcdf220\",\"col\":1,\"row\":4},{\"size_x\":6,\"size_y\":3,\"panelIndex\":3,\"type\":\"visualization\",\"id\":\"34958a50-484c-11e8-80eb-d9623bcdf220\",\"col\":1,\"row\":7},{\"size_x\":6,\"size_y\":3,\"panelIndex\":4,\"type\":\"visualization\",\"id\":\"839d7950-484c-11e8-80eb-d9623bcdf220\",\"col\":7,\"row\":1},{\"size_x\":6,\"size_y\":3,\"panelIndex\":5,\"type\":\"visualization\",\"id\":\"ccc27310-484c-11e8-80eb-d9623bcdf220\",\"col\":7,\"row\":4},{\"size_x\":6,\"size_y\":3,\"panelIndex\":6,\"type\":\"visualization\",\"id\":\"e16cfa10-484c-11e8-80eb-d9623bcdf220\",\"col\":7,\"row\":7}]",
@@ -112,8 +112,8 @@
       },
       "id": "7181b380-484c-11e8-80eb-d9623bcdf220",
       "type": "dashboard",
-      "updated_at": "2018-05-03T07:37:53.963Z",
-      "version": 1
+      "updated_at": "2018-05-08T08:51:59.141Z",
+      "version": 3
     }
   ],
   "version": "6.2.3"
