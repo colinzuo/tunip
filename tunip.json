@@ -6,6 +6,8 @@
         "reqtimeout": 2000,
         "batchsize": 1000,
         "BatchTimeout": 100,
-        "esserveraddr": "http://172.26.0.41:9200"
+        "esserveraddr": "http://172.26.0.41:9200",
+        "setup": false,
+        "beatconfigpath": "tunipbeat.yml"
     }
 }

@@ -1,0 +1,248 @@
+{
+  "objects": [
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"type\":\"phrases\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF, SERVER_MCU_CALL\",\"params\":[\"SERVER_MCU_CONF\",\"SERVER_MCU_CALL\"],\"negate\":false,\"disabled\":false,\"alias\":\"MCU_DATA\"},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CONF\"}},{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CALL\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+        },
+        "title": "ConfCount",
+        "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfCount\",\"type\":\"horizontal_bar\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":200},\"position\":\"left\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{},\"type\":\"category\"}],\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"legendPosition\":\"right\",\"seriesParams\":[{\"show\":true,\"mode\":\"normal\",\"type\":\"histogram\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"data\":{\"id\":\"4\",\"label\":\"ConfCount\"},\"valueAxis\":\"ValueAxis-1\"}],\"times\":[],\"type\":\"histogram\",\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":true,\"rotate\":75,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"bottom\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"ConfCount\"},\"type\":\"value\"}]},\"aggs\":[{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.conf.number.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"4\",\"customLabel\":\"ConfNumber\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"ConfCount\"}}]}"
+      },
+      "id": "9caaac50-478a-11e8-a348-5fd12ff2ac55",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:45.958Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"type\":\"phrases\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF, SERVER_MCU_CALL\",\"params\":[\"SERVER_MCU_CONF\",\"SERVER_MCU_CALL\"],\"negate\":false,\"disabled\":false,\"alias\":\"MCU_DATA\"},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CONF\"}},{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CALL\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+        },
+        "title": "CallCount",
+        "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}",
+        "version": 1,
+        "visState": "{\"title\":\"CallCount\",\"type\":\"horizontal_bar\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":200},\"position\":\"left\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{},\"type\":\"category\"}],\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"legendPosition\":\"right\",\"seriesParams\":[{\"show\":true,\"mode\":\"normal\",\"type\":\"histogram\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"data\":{\"id\":\"4\",\"label\":\"CallCount\"},\"valueAxis\":\"ValueAxis-1\"}],\"times\":[],\"type\":\"histogram\",\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":true,\"rotate\":75,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"bottom\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"CallCount\"},\"type\":\"value\"}]},\"aggs\":[{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.call.number.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"4\",\"customLabel\":\"ConfNumber\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"CallCount\"}}]}"
+      },
+      "id": "e6622210-478a-11e8-a348-5fd12ff2ac55",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:44.576Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"type\":\"phrases\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF, SERVER_MCU_CALL\",\"params\":[\"SERVER_MCU_CONF\",\"SERVER_MCU_CALL\"],\"negate\":false,\"disabled\":false,\"alias\":\"MCU_DATA\"},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CONF\"}},{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CALL\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+        },
+        "title": "CallDurationSum",
+        "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}",
+        "version": 1,
+        "visState": "{\"title\":\"CallDurationSum\",\"type\":\"horizontal_bar\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":200},\"position\":\"left\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{},\"type\":\"category\"}],\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"legendPosition\":\"right\",\"seriesParams\":[{\"show\":true,\"mode\":\"normal\",\"type\":\"histogram\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"data\":{\"id\":\"4\",\"label\":\"CallDurationSum\"},\"valueAxis\":\"ValueAxis-1\"}],\"times\":[],\"type\":\"histogram\",\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":true,\"rotate\":75,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"bottom\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"CallDurationSum\"},\"type\":\"value\"}]},\"aggs\":[{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.call.number.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"4\",\"customLabel\":\"ConfNumber\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"customLabel\":\"CallDurationSum\"}}]}"
+      },
+      "id": "203e2510-478b-11e8-a348-5fd12ff2ac55",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:44.594Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"type\":\"phrases\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF, SERVER_MCU_CALL\",\"params\":[\"SERVER_MCU_CONF\",\"SERVER_MCU_CALL\"],\"negate\":false,\"disabled\":false,\"alias\":\"MCU_DATA\"},\"query\":{\"bool\":{\"should\":[{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CONF\"}},{\"match_phrase\":{\"json_extract.type.keyword\":\"SERVER_MCU_CALL\"}}],\"minimum_should_match\":1}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+        },
+        "title": "ConfSumDuration",
+        "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfSumDuration\",\"type\":\"horizontal_bar\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":200},\"position\":\"left\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{},\"type\":\"category\"}],\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"legendPosition\":\"right\",\"seriesParams\":[{\"show\":true,\"mode\":\"normal\",\"type\":\"histogram\",\"drawLinesBetweenPoints\":true,\"showCircles\":true,\"data\":{\"id\":\"4\",\"label\":\"ConfSumDuration\"},\"valueAxis\":\"ValueAxis-1\"}],\"times\":[],\"type\":\"histogram\",\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":true,\"rotate\":75,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"bottom\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"ConfSumDuration\"},\"type\":\"value\"}]},\"aggs\":[{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.conf.number.keyword\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"4\",\"customLabel\":\"ConfNumber\"}},{\"id\":\"4\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"customLabel\":\"ConfSumDuration\"}}]}"
+      },
+      "id": "850e0e70-478a-11e8-a348-5fd12ff2ac55",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:46.957Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CONF\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF\",\"params\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "ConfCountDaily",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfCountDaily\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"ConfCount\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"ConfCount\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"ConfCount\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Day\"}}]}"
+      },
+      "id": "b93621d0-4792-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:45.953Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CONF\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF\",\"params\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "ConfDurationCountHalfHourInterval",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfDurationCountHalfHourInterval\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"ConfCount\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"ConfCount\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"ConfCount\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.duration\",\"interval\":1800,\"extended_bounds\":{},\"customLabel\":\"HalfHour\"}}]}"
+      },
+      "id": "ccbf3340-4792-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:46.514Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CALL\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CALL\",\"params\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "CallDurationCountHalfHourInterval",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"CallDurationCountHalfHourInterval\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"CallCount\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"CallCount\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"CallCount\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.duration\",\"interval\":1800,\"extended_bounds\":{},\"customLabel\":\"HalfHour\"}}]}"
+      },
+      "id": "c98c4d60-4793-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:44.585Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CONF\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF\",\"params\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "ConfDurationSumHalfHourInterval",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfDurationSumHalfHourInterval\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"ConfDurationSum\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"ConfDurationSum\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"customLabel\":\"ConfDurationSum\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.duration\",\"interval\":1800,\"extended_bounds\":{},\"customLabel\":\"HalfHour\"}}]}"
+      },
+      "id": "0b31c370-4795-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:46.961Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CALL\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CALL\",\"params\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "CallDurationSumHalfHourInterval",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"CallDurationSumHalfHourInterval\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"CallDurationSum\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"CallDurationSum\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"customLabel\":\"CallDurationSum\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"json_extract.duration\",\"interval\":1800,\"extended_bounds\":{},\"customLabel\":\"HalfHour\"}}]}"
+      },
+      "id": "f00c4cf0-4794-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:45.960Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CONF\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF\",\"params\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "ConfDurationSumDaily",
+        "uiStateJSON": "{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfDurationSumDaily\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"ConfDurationSum\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"ConfDurationSum\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"customLabel\":\"ConfDurationSum\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Day\"}}]}"
+      },
+      "id": "c07dabf0-4799-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:46.520Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CALL\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CALL\",\"params\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "CallDurationSumDaily",
+        "uiStateJSON": "{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}",
+        "version": 1,
+        "visState": "{\"title\":\"CallDurationSumDaily\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"CallDurationSum\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"CallDurationSum\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"customLabel\":\"CallDurationSum\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"d\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Day\"}}]}"
+      },
+      "id": "d43f0b70-4799-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:44.602Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CONF\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CONF\",\"params\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CONF\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "ConfDurationPercentWeekly",
+        "uiStateJSON": "{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}",
+        "version": 1,
+        "visState": "{\"title\":\"ConfDurationPercentWeekly\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"DurationPercent\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"DurationPercent\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"percents\":[1,5,25,50,75,95,99],\"customLabel\":\"DurationPercent\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"w\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Week\"}}]}"
+      },
+      "id": "15f8fa40-47a3-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:46.517Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"meta\":{\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"negate\":false,\"disabled\":false,\"alias\":\"MCU_CALL\",\"type\":\"phrase\",\"key\":\"json_extract.type.keyword\",\"value\":\"SERVER_MCU_CALL\",\"params\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "title": "CallDurationPercentWeekly",
+        "uiStateJSON": "{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}",
+        "version": 1,
+        "visState": "{\"title\":\"CallDurationPercentWeekly\",\"type\":\"histogram\",\"params\":{\"type\":\"histogram\",\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"type\":\"category\",\"position\":\"bottom\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\"},\"labels\":{\"show\":true,\"truncate\":100},\"title\":{}}],\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"name\":\"LeftAxis-1\",\"type\":\"value\",\"position\":\"left\",\"show\":true,\"style\":{},\"scale\":{\"type\":\"linear\",\"mode\":\"normal\"},\"labels\":{\"show\":true,\"rotate\":0,\"filter\":false,\"truncate\":100},\"title\":{\"text\":\"DurationPercent\"}}],\"seriesParams\":[{\"show\":\"true\",\"type\":\"histogram\",\"mode\":\"stacked\",\"data\":{\"label\":\"DurationPercent\",\"id\":\"1\"},\"valueAxis\":\"ValueAxis-1\",\"drawLinesBetweenPoints\":true,\"showCircles\":true}],\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"times\":[],\"addTimeMarker\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"json_extract.duration\",\"percents\":[1,5,25,50,75,95,99],\"customLabel\":\"DurationPercent\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"w\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{},\"customLabel\":\"Week\"}}]}"
+      },
+      "id": "eacc1f00-47a2-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:44.590Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"index\":\"630c6c00-4ab3-11e8-bce4-e34f767d1c2a\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"MCU_CALL\",\"disabled\":false,\"index\":\"24778e80-43a5-11e8-9247-ff0f55e669b1\",\"key\":\"json_extract.type.keyword\",\"negate\":false,\"params\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"},\"type\":\"phrase\",\"value\":\"SERVER_MCU_CALL\"},\"query\":{\"match\":{\"json_extract.type.keyword\":{\"query\":\"SERVER_MCU_CALL\",\"type\":\"phrase\"}}}}],\"query\":{\"language\":\"lucene\",\"query\":\"\"}}"
+        },
+        "title": "CallCountDaily",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"aggs\":[{\"enabled\":true,\"id\":\"1\",\"params\":{\"customLabel\":\"ConfCount\"},\"schema\":\"metric\",\"type\":\"count\"},{\"enabled\":true,\"id\":\"2\",\"params\":{\"customInterval\":\"2h\",\"customLabel\":\"Day\",\"extended_bounds\":{},\"field\":\"@timestamp\",\"interval\":\"d\",\"min_doc_count\":1},\"schema\":\"segment\",\"type\":\"date_histogram\"}],\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"categoryAxes\":[{\"id\":\"CategoryAxis-1\",\"labels\":{\"show\":true,\"truncate\":100},\"position\":\"bottom\",\"scale\":{\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{},\"type\":\"category\"}],\"grid\":{\"categoryLines\":false,\"style\":{\"color\":\"#eee\"}},\"legendPosition\":\"right\",\"seriesParams\":[{\"data\":{\"id\":\"1\",\"label\":\"ConfCount\"},\"drawLinesBetweenPoints\":true,\"mode\":\"stacked\",\"show\":\"true\",\"showCircles\":true,\"type\":\"histogram\",\"valueAxis\":\"ValueAxis-1\"}],\"times\":[],\"type\":\"histogram\",\"valueAxes\":[{\"id\":\"ValueAxis-1\",\"labels\":{\"filter\":false,\"rotate\":0,\"show\":true,\"truncate\":100},\"name\":\"LeftAxis-1\",\"position\":\"left\",\"scale\":{\"mode\":\"normal\",\"type\":\"linear\"},\"show\":true,\"style\":{},\"title\":{\"text\":\"ConfCount\"},\"type\":\"value\"}]},\"title\":\"CallCountDaily\",\"type\":\"histogram\"}"
+      },
+      "id": "543b3920-4849-11e8-80eb-d9623bcdf220",
+      "type": "visualization",
+      "updated_at": "2018-05-03T07:37:44.582Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "hits": 0,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+        },
+        "optionsJSON": "{\"darkTheme\":false}",
+        "panelsJSON": "[{\"col\":1,\"id\":\"9caaac50-478a-11e8-a348-5fd12ff2ac55\",\"panelIndex\":1,\"row\":7,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"e6622210-478a-11e8-a348-5fd12ff2ac55\",\"panelIndex\":3,\"row\":7,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"203e2510-478b-11e8-a348-5fd12ff2ac55\",\"panelIndex\":4,\"row\":10,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"850e0e70-478a-11e8-a348-5fd12ff2ac55\",\"panelIndex\":5,\"row\":10,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"b93621d0-4792-11e8-80eb-d9623bcdf220\",\"panelIndex\":6,\"row\":1,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"ccbf3340-4792-11e8-80eb-d9623bcdf220\",\"panelIndex\":8,\"row\":13,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"c98c4d60-4793-11e8-80eb-d9623bcdf220\",\"panelIndex\":9,\"row\":13,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"0b31c370-4795-11e8-80eb-d9623bcdf220\",\"panelIndex\":10,\"row\":16,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"f00c4cf0-4794-11e8-80eb-d9623bcdf220\",\"panelIndex\":11,\"row\":16,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"c07dabf0-4799-11e8-80eb-d9623bcdf220\",\"panelIndex\":12,\"row\":4,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"d43f0b70-4799-11e8-80eb-d9623bcdf220\",\"panelIndex\":13,\"row\":4,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"15f8fa40-47a3-11e8-80eb-d9623bcdf220\",\"panelIndex\":14,\"row\":19,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"eacc1f00-47a2-11e8-80eb-d9623bcdf220\",\"panelIndex\":15,\"row\":19,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"size_x\":6,\"size_y\":3,\"panelIndex\":16,\"type\":\"visualization\",\"id\":\"543b3920-4849-11e8-80eb-d9623bcdf220\",\"col\":7,\"row\":1}]",
+        "timeRestore": false,
+        "title": "ConfDashboard",
+        "uiStateJSON": "{}",
+        "version": 1
+      },
+      "id": "b486cec0-478b-11e8-a348-5fd12ff2ac55",
+      "type": "dashboard",
+      "updated_at": "2018-05-03T07:37:53.957Z",
+      "version": 1
+    }
+  ],
+  "version": "6.2.3"
+}

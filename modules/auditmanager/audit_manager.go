@@ -87,6 +87,13 @@ func Run() {
 	manager.freeWorkerChan = make(chan chan []workerRequest, config.MaxWorker)
 	manager.doneChan = make(chan bool)
 
+	if config.Setup {
+		manager.loadDashboard()
+		return
+	} else {
+		go manager.loadDashboard()
+	}
+
 	go manager.dispatch()
 
 	for i := 0; i < config.MaxWorker; i++ {

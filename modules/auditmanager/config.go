@@ -2,6 +2,8 @@ package auditmanager
 
 import (
 	"github.com/colinzuo/tunip/logp"
+	"github.com/colinzuo/tunip/thirdparty/elastic/beats/libbeat/cfgfile"
+	"github.com/colinzuo/tunip/thirdparty/elastic/beats/libbeat/common"
 	"github.com/spf13/viper"
 )
 
@@ -12,12 +14,23 @@ const (
 
 // Config config for audit manager
 type Config struct {
-	MaxWorker    int    `json:"maxworker"`
-	WebPort      int    `json:"webport"`
-	ReqTimeout   int    `json:"reqtimeout"`
-	BatchSize    int    `json:"batchsize"`
-	BatchTimeout int    `json:"batchtimeout"`
-	EsServerAddr string `json:"esserveraddr"`
+	MaxWorker      int    `json:"maxworker"`
+	WebPort        int    `json:"webport"`
+	ReqTimeout     int    `json:"reqtimeout"`
+	BatchSize      int    `json:"batchsize"`
+	BatchTimeout   int    `json:"batchtimeout"`
+	EsServerAddr   string `json:"esserveraddr"`
+	Setup          bool   `json:"setup"`
+	BeatConfigPath string `json:"beatconfigpath"`
+	BeatConfig     *common.Config
+	SetupConfig    SetupConfig
+}
+
+// SetupConfig elastic stack 'setup' configurations
+type SetupConfig struct {
+	Dashboards *common.Config `config:"setup.dashboards"`
+	Template   *common.Config `config:"setup.template"`
+	Kibana     *common.Config `config:"setup.kibana"`
 }
 
 // API response error code
@@ -56,11 +69,13 @@ const (
 )
 
 var defaultConfig = Config{
-	MaxWorker:    8,
-	WebPort:      8080,
-	ReqTimeout:   3000,
-	BatchSize:    1000,
-	BatchTimeout: 300,
+	MaxWorker:      8,
+	WebPort:        8080,
+	ReqTimeout:     3000,
+	BatchSize:      1000,
+	BatchTimeout:   300,
+	Setup:          false,
+	BeatConfigPath: "",
 }
 
 // DefaultConfig returns the default config options.
@@ -92,6 +107,26 @@ func initConfig() (Config, error) {
 
 	if config.BatchTimeout <= 50 {
 		logger.Panic("initConfig: BatchTimeout should be larger than 50")
+	}
+
+	if len(config.BeatConfigPath) > 0 {
+		err = cfgfile.HandleFlags()
+
+		if err != nil {
+			logger.Panic("HandleFlags failed, %s", err)
+		}
+
+		config.BeatConfig, err = cfgfile.Load(config.BeatConfigPath)
+
+		if err != nil {
+			logger.Panic("read BeatConfig %s failed, %s", config.BeatConfigPath, err)
+		}
+
+		err = config.BeatConfig.Unpack(&config.SetupConfig)
+
+		if err != nil {
+			logger.Panic("Unpack SetupConfig failed, %s", err)
+		}
 	}
 
 	return config, nil
