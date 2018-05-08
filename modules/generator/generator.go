@@ -307,8 +307,8 @@ func (g *Generator) generateMcuCall(mcuConf McuConf, idx int) *elastic.BulkIndex
 	mcuCall := McuCall{
 		Type:       "SERVER_MCU_CALL",
 		GUID:       guid,
-		confGUID:   mcuConf.GUID,
-		CallDetail: McuCallDetail{Number: mcuConf.ConfDetail.Number},
+		ConfGUID:   mcuConf.GUID,
+		ConfNumber: mcuConf.ConfDetail.Number,
 		StartTime:  startTime.Format(g.timeLongForm),
 		EndTime:    endTime.Format(g.timeLongForm),
 		Duration:   (int)(duration.Seconds()),
