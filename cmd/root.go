@@ -25,7 +25,7 @@ const (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   appName,
-	Short: "Audit Manager",
+	Short: "Tunip with Go",
 	Run:   runCmd.Run,
 }
 

@@ -11,6 +11,11 @@ import (
 	"github.com/colinzuo/tunip/logp/configure"
 )
 
+type auditEvent struct {
+	Type string `json:"type"`
+	GUID string `json:"guid"`
+}
+
 func main() {
 	appName := "log_demo"
 
@@ -28,4 +33,6 @@ func main() {
 	logger := logp.NewLogger("main")
 
 	logger.Info("Hello, world!")
+
+	logger.With("json_extract", auditEvent{Type: "TUNIP_TEST", GUID: "20180614"}).Info("Hello Again")
 }

@@ -10,6 +10,8 @@ import (
 
 	"github.com/colinzuo/tunip/logp"
 	"github.com/colinzuo/tunip/logp/configure"
+	"github.com/colinzuo/tunip/thirdparty/github.com/gin-contrib/cors"
+	"github.com/colinzuo/tunip/thirdparty/github.com/gin-contrib/static"
 	"github.com/colinzuo/tunip/utils"
 
 	"github.com/gin-gonic/gin"
@@ -41,6 +43,8 @@ func main() {
 	router := gin.New()
 	router.Use(utils.Ginzap(logger))
 	router.Use(gin.Recovery())
+	router.Use(cors.Default())
+	router.Use(static.Serve("/", static.LocalFile("./dist", true)))
 
 	tunip := router.Group("/tunip")
 	{
