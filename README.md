@@ -1,2 +1,2 @@
 # tunip
-Audit manager
+Sample go program
