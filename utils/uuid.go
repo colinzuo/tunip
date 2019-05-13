@@ -5,6 +5,6 @@ import (
 )
 
 // NewUUID use uuid
-func NewUUID() (string, error) {
-	return uuid.NewV4().String(), nil
+func NewUUID() string {
+	return uuid.NewV4().String()
 }

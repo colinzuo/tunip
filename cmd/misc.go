@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/pflag"
 
 	"github.com/spf13/cobra"
+
+	"github.com/colinzuo/tunip/modules/miscmanager"
 )
 
 var miscConfig string
@@ -29,4 +31,6 @@ func init() {
 func misc(cmd *cobra.Command, args []string) {
 	logger := logp.NewLogger(ModuleName)
 	logger.Infof("Enter with miscConfig %s", miscConfig)
+
+	miscmanager.Run(miscConfig)
 }

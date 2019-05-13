@@ -1,13 +1,3 @@
 {
-    "log_config": "log.json",
-    "audit_manager": {
-        "maxworker": 8,
-        "webport": 9090,
-        "reqtimeout": 2000,
-        "batchsize": 1000,
-        "BatchTimeout": 100,
-        "esserveraddr": "http://172.26.0.41:9200",
-        "setup": false,
-        "beatconfigpath": "tunipbeat.yml"
-    }
+    "log_config": "log.json"
 }
