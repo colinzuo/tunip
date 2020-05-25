@@ -1,6 +1,8 @@
 package logp
 
 import (
+	"time"
+
 	"go.uber.org/zap/zapcore"
 )
 
@@ -13,7 +15,7 @@ var baseEncodingConfig = zapcore.EncoderConfig{
 	StacktraceKey:  "stacktrace",
 	LineEnding:     zapcore.DefaultLineEnding,
 	EncodeLevel:    zapcore.LowercaseLevelEncoder,
-	EncodeTime:     zapcore.ISO8601TimeEncoder,
+	EncodeTime:     ISO8601TimeEncoder,
 	EncodeDuration: zapcore.NanosDurationEncoder,
 	EncodeCaller:   zapcore.ShortCallerEncoder,
 	EncodeName:     zapcore.FullNameEncoder,
@@ -40,4 +42,22 @@ func consoleEncoderConfig() zapcore.EncoderConfig {
 
 func bracketedNameEncoder(loggerName string, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString("[" + loggerName + "]")
+}
+
+func encodeTimeLayout(t time.Time, layout string, enc zapcore.PrimitiveArrayEncoder) {
+	type appendTimeEncoder interface {
+		AppendTimeLayout(time.Time, string)
+	}
+
+	if enc, ok := enc.(appendTimeEncoder); ok {
+		enc.AppendTimeLayout(t, layout)
+		return
+	}
+
+	enc.AppendString(t.Format(layout))
+}
+
+// ISO8601TimeEncoder use official timezone format
+func ISO8601TimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+	encodeTimeLayout(t, "2006-01-02T15:04:05.000-07:00", enc)
 }
