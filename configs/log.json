@@ -1,6 +1,6 @@
 {
     "json": false,
-    "level": -1,
+    "level": 0,
     "selectors": [],
 
     "to_observer": false,
@@ -9,9 +9,9 @@
 
     "files": {
         "path": "logs",
-        "name": "log_demo.log",
-        "maxsize": 5,
-        "maxbackups": 20,
+        "name": "tunip.log",
+        "maxsize": 10,
+        "maxbackups": 100,
         "maxage": 20,
         "compress": false
     },

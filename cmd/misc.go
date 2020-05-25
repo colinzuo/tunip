@@ -1,12 +1,11 @@
 package cmd
 
 import (
-	"github.com/colinzuo/tunip/logp"
+	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
-	"github.com/spf13/cobra"
-
-	"github.com/colinzuo/tunip/modules/miscmanager"
+	"github.com/colinzuo/tunip/internal/miscmanager"
+	"github.com/colinzuo/tunip/pkg/logp"
 )
 
 var miscConfig string
@@ -23,7 +22,7 @@ func init() {
 	rootCmd.AddCommand(miscCmd)
 
 	keyName := "miscConfig"
-	pflag.StringVar(&miscConfig, keyName, "misc.json", "Misc configurations")
+	pflag.StringVar(&miscConfig, keyName, "./configs/misc.json", "Misc configurations")
 	miscCmd.Flags().AddFlag(pflag.CommandLine.Lookup(keyName))
 }
 

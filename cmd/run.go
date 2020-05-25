@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"github.com/colinzuo/tunip/logp"
 	"github.com/spf13/cobra"
+
+	"github.com/colinzuo/tunip/pkg/logp"
 )
 
 // runCmd represents the run command

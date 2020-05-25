@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
-	"github.com/colinzuo/tunip/logp"
-	"github.com/colinzuo/tunip/logp/configure"
+	"github.com/colinzuo/tunip/pkg/logp"
+	"github.com/colinzuo/tunip/pkg/logp/configure"
 )
 
 type auditEvent struct {

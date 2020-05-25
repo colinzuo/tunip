@@ -3,15 +3,17 @@ package cmd
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
-	"github.com/colinzuo/tunip/logp"
-	"github.com/colinzuo/tunip/logp/configure"
+	"github.com/colinzuo/tunip/pkg/logp"
+	"github.com/colinzuo/tunip/pkg/logp/configure"
 )
 
 var cfgFile string
@@ -44,7 +46,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/tunip.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./configs/tunip.json or $HOME/tunip.json)")
 
 	// for log
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
@@ -54,7 +56,7 @@ func init() {
 	rootCmd.PersistentFlags().AddFlag(pflag.CommandLine.Lookup("verbose"))
 	rootCmd.PersistentFlags().AddFlag(pflag.CommandLine.Lookup("toStderr"))
 	rootCmd.PersistentFlags().AddFlag(pflag.CommandLine.Lookup("debug"))
-	rootCmd.PersistentFlags().AddFlag(pflag.CommandLine.Lookup("log_config"))
+	rootCmd.PersistentFlags().AddFlag(pflag.CommandLine.Lookup("logConfig"))
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -75,7 +77,7 @@ func initConfig() {
 		}
 
 		// Search config in home directory with name $appName (without extension).
-		viper.AddConfigPath(".")
+		viper.AddConfigPath(filepath.Join(".", "configs"))
 		viper.AddConfigPath(home)
 		viper.SetConfigName(appName)
 	}
@@ -85,6 +87,22 @@ func initConfig() {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
+
+		logConfig := viper.GetString("logConfig")
+
+		if _, err := os.Stat(logConfig); os.IsNotExist(err) {
+			if filepath.IsAbs(logConfig) {
+				log.Panicf("logConfig %s doesn't exist", logConfig)
+			}
+			dir := filepath.Dir(viper.ConfigFileUsed())
+			logConfig = filepath.Join(dir, logConfig)
+			viper.Set("logConfig", logConfig)
+			fmt.Println("Update logConfig file:", logConfig)
+		}
+
+		if _, err := os.Stat(logConfig); os.IsNotExist(err) {
+			log.Panicf("Updated logConfig %s also doesn't exist", logConfig)
+		}
 	}
 
 	configure.Logging(appName)
