@@ -72,4 +72,8 @@ func (m *Manager) Work() {
 	if config.ViperTest != nil && config.ViperTest.Enabled {
 		m.viperTest()
 	}
+
+	if config.CpuBusyTest != nil && config.CpuBusyTest.Enabled {
+		m.cpuBusyTest()
+	}
 }

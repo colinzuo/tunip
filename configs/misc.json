@@ -1,12 +1,18 @@
 {
     "perf_test": {
-        "enabled": true,
+        "enabled": false,
         "maxworker": 400,
         "number": 100000
     },
 
     "viper_test": {
-        "enabled": true,
+        "enabled": false,
         "key": "path"
+    },
+
+    "cpu_busy_test": {
+        "enabled": true,
+        "maxworker": 100,
+        "number": 1000000000
     }
 }

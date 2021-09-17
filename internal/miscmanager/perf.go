@@ -49,8 +49,8 @@ func (m *Manager) perfTest() {
 	logger := m.logger
 	config := m.config.PerfTest
 
-	logger.Info("Enter")
-	defer logger.Info("Leave")
+	logger.Info("Enter perfTest")
+	defer logger.Info("Leave perfTest")
 
 	m.dispatchChan = make(chan WorkerRequest, 1000)
 	m.freeWorkerChan = make(chan chan interface{}, config.MaxWorker)

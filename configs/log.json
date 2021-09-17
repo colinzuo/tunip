@@ -4,7 +4,7 @@
     "selectors": [],
 
     "to_observer": false,
-    "to_stderr": false,
+    "to_stderr": true,
     "to_files": true,
 
     "files": {

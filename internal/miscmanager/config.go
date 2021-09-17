@@ -18,12 +18,20 @@ type ViperTestConfig struct {
 	Key     string `json:"key"`
 }
 
+// CpuBusyTestConfig CPU Busy test config
+type CpuBusyTestConfig struct {
+	Enabled   bool `json:"enabled"`
+	MaxWorker int  `json:"maxworker"`
+	Number    int  `json:"number"`
+}
+
 // Config config for Generator
 type Config struct {
 	ServerAddr string `json:"server_addr"`
 
-	PerfTest  *PerfTestConfig  `json:"perf_test,omitempty"`
-	ViperTest *ViperTestConfig `json:"viper_test,omitempty"`
+	PerfTest    *PerfTestConfig    `json:"perf_test,omitempty"`
+	ViperTest   *ViperTestConfig   `json:"viper_test,omitempty"`
+	CpuBusyTest *CpuBusyTestConfig `json:"cpu_busy_test,omitempty"`
 }
 
 // API response error code
